@@ -9,10 +9,10 @@ class LinkedList{
             Node* next;
             Node(const Type& val) : data(val), next(nullptr) {}
         };
-
         Node* head;
         int size;
 
+        // Helper method for inserting after a node
         void insertAfter(Node* start, Node* middle){
             assert(start && middle);
 
@@ -20,8 +20,11 @@ class LinkedList{
             middle->next = end;
             start->next = middle;
         }
+
+        // Helper method to traverse and return node at an index
         Node* traverseTo(int index){
             assert(index < size && index >= 0);
+
             int current_index = 0;
             Node* current = head;
             while(current_index != index && current->next != nullptr){
@@ -32,6 +35,7 @@ class LinkedList{
         }
     public:
         LinkedList() : head(nullptr), size(0){}
+        // Deconstructor to free all allocated memory
         ~LinkedList(){
             Node* current = head;
             while(current != nullptr) {
@@ -41,28 +45,57 @@ class LinkedList{
             }
         }
 
+        // Get and Sets list[index]
         Type& operator[](int index){
             Node* node = traverseTo(index);
             return node->data;
         }
+
         int length(){
             return size;
         }
-
+        // Method to insert at the end of list
         void insert(Type data){
             insert(data, size);
         }
+        // Method to insert at an index
         void insert(Type data, int index){
             assert(index >= 0 && index <= size);
-            Node* node = new Node(data);
             size++;
+            Node* node = new Node(data);
+
             if(index == 0){
                 Node* next = head;
                 head = node;
                 head->next = next;
                 return;
             }
+            
             Node* current = traverseTo(index-1);
             insertAfter(current, node);
+        }
+
+        Type removeAt(int index){
+            assert(index >= 0 && index < size);
+            size--;
+
+            if(index == 0){
+                Node* next = head->next;
+                Node* oldHead = head;
+                head = next;
+                Type value = oldHead->data;
+                delete oldHead;
+                return value;
+            }
+
+            Node* prev = traverseTo(index - 1);
+            // Links prev to next
+            Node* node = prev->next;
+            Node* next = node->next;
+            prev->next = next;
+
+            Type value = node->data;
+            delete node;
+            return value;
         }
 };
