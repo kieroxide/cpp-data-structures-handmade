@@ -54,11 +54,13 @@ class LinkedList{
         int length(){
             return size;
         }
+
         // Method to insert at the end of list
         void insert(Type data){
             insert(data, size);
         }
-        // Method to insert at an index
+
+        // Method to create and insert node at an index
         void insert(Type data, int index){
             assert(index >= 0 && index <= size);
             size++;
@@ -74,7 +76,7 @@ class LinkedList{
             Node* current = traverseTo(index-1);
             insertAfter(current, node);
         }
-
+        // Method to remove node at an index
         Type removeAt(int index){
             assert(index >= 0 && index < size);
             size--;

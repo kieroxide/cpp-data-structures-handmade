@@ -41,4 +41,14 @@ class Vector{
             //appends the item and then increments the length
             data[size++] = item;
         }
+        
+        // Simple Search method to return if target is in Vector
+        bool search(Type target){
+            for(int i = 0; i < size; i++){
+                if(data[i] == target){
+                    return true;
+                }
+            }
+            return false;
+        }
 };
