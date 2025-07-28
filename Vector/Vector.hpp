@@ -1,11 +1,12 @@
 #pragma once
 #include <cassert>
+#include <utility>
 
-static const int INITIAL_CAPACITY = 4;
 template<typename Type>
 
 class Vector{
     private:
+        const int INITIAL_CAPACITY = 4; 
         Type* data;
         int size;
         int capacity;
@@ -50,7 +51,7 @@ class Vector{
                 data[i] = std::move(data[i+1]);
             }
             size--;
-            data[i-1] = Type();
+            data[size] = Type();
             return value;
         }
         
