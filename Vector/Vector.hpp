@@ -28,6 +28,12 @@ class Vector{
             return data[index];
         }
 
+        // Const Get by index
+        const Type& operator[] (int index) const{
+            assert(index >= 0 && index < size);
+            return data[index];
+        }
+
         // Method to add an item and resize if needed. Capacity doubles each resizing
         void append(const Type& item){
             if(size >= capacity){
