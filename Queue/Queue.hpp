@@ -1,34 +1,31 @@
 #pragma once
-#include "../Vector/Vector.hpp"
+#include "../Deque/Deque.hpp"
 
 template<typename Type>
 
 class Queue{
     private:
-        Vector<Type> data;
+        Deque<Type> data;
         
     public:
         // Queue item to end of queue
         void enqueue(Type item){
-            data.append(item);
+            data.push_back(item);
         }
 
         // Dequeue item at front of queue
         Type dequeue(){
-            assert(!isEmpty());
-            Type item = data.remove(0);
-            return item;
+            return data.pop_front();
         }
 
         // Return item at front of queue without dequeuing
-        Type front() const{
-            assert(!isEmpty());
-            return data[0];
+        Type front(){
+            return data.front();
         }
         
         // Returns a true if queue is empty
         bool isEmpty() const{
-            return data.length() == 0;
+            return data.isEmpty();
         }
         
         // Returns the amount of items in the queue
