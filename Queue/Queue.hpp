@@ -3,35 +3,35 @@
 
 template<typename Type>
 
-class Stack{
+class Queue{
     private:
         Vector<Type> data;
         
     public:
-        // Push item to top of the stack
-        void push(Type item){
+        // Queue item to end of queue
+        void enqueue(Type item){
             data.append(item);
         }
 
-        //Pop item from top of the stack
-        Type pop(){
+        // Dequeue item at front of queue
+        Type dequeue(){
             assert(!isEmpty());
-            Type item = data.remove(data.length()-1);
+            Type item = data.remove(0);
             return item;
         }
 
-        // Return item at top of stack without removing it from the stack
-        Type peek() const{
+        // Return item at front of queue without dequeuing
+        Type front() const{
             assert(!isEmpty());
-            return data[data.length()-1];
+            return data[0];
         }
         
-        // Returns a true if stack is empty
+        // Returns a true if queue is empty
         bool isEmpty() const{
             return data.length() == 0;
         }
-
-        // Returns the amount of items in the stack
+        
+        // Returns the amount of items in the queue
         int length() const{
             return data.length();
         }
