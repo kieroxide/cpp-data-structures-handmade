@@ -24,7 +24,7 @@ class LinkedList{
         }
 
         // Helper method to traverse and return node at an index
-        Node* traverseTo(int index){
+        Node* traverseTo(int index) const{
             assert(index < size && index >= 0);
 
             int current_index = 0;
@@ -35,6 +35,7 @@ class LinkedList{
             }
             return current;
         }
+
     public:
         LinkedList() : head(nullptr), size(0){}
         // Deconstructor to free all allocated memory
@@ -53,7 +54,13 @@ class LinkedList{
             return node->data;
         }
 
-        int length(){
+        // Gets const list[index]
+        const Type& operator[](int index) const{
+            Node* node = traverseTo(index);
+            return node->data;
+        }
+
+        int length() const{
             return size;
         }
 
