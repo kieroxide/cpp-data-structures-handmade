@@ -72,7 +72,9 @@ class Vector{
         }
 
         // Method to Manually resize the vector. If shrinking excess will be discarded
+        // Clamped to size of 1 if input is below 1
         void resize(int newSize){
+            if(newSize <= 0) {newSize = 1;}
             int elementsToCopy = (newSize < size) ? newSize : size;
             // Allocates new vector and copies values from old vector
             capacity = newSize;
