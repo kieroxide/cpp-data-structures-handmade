@@ -148,9 +148,6 @@ class Vector
 
     // Method to clear the array to default
     void clear() {
-        for (int i = 0; i < length(); i++) {
-            data[i] = Type();
-        }
         size = 0;
     }
 };
