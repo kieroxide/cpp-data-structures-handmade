@@ -1,9 +1,11 @@
-#include <iostream>
-#include "Vector.hpp"
 #include <cassert>
+#include <iostream>
 #include <string>
 
-int main(){
+#include "Vector.hpp"
+
+
+int main() {
     Vector<int> test;
 
     // Append Testing
@@ -13,9 +15,9 @@ int main(){
 
     assert(test[0] == 20 && test[1] == 10 && test[2] == -1);
 
-    std::cout << "vec[0] = " << test[0] << "\n"; // Expect 20
-    std::cout << "vec[1] = " << test[1] << "\n"; // Expect 10
-    std::cout << "vec[2] = " << test[2] << "\n"; // Expect -1
+    std::cout << "vec[0] = " << test[0] << "\n";  // Expect 20
+    std::cout << "vec[1] = " << test[1] << "\n";  // Expect 10
+    std::cout << "vec[2] = " << test[2] << "\n";  // Expect -1
     // Append Testing passed
 
     // Test dynamic resizing
@@ -24,9 +26,8 @@ int main(){
     }
 
     assert(test.length() == 53);
-    std::cout << "Length = " << test.length() << "\n"; 
+    std::cout << "Length = " << test.length() << "\n";
     // Dynamic resizing passed
-
 
     // Remove Testing
     Vector<int> testB;

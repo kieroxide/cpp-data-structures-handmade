@@ -58,7 +58,6 @@ class Vector
         return capacity;
     }
 
-
     // get and set by index
     Type& operator[](int index) {
         assert(index >= 0 && index < size);

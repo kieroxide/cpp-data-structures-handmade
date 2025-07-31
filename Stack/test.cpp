@@ -1,5 +1,7 @@
 #include <cassert>
+
 #include "Stack.hpp"
+
 
 int main() {
     Stack<int> stack;
@@ -31,10 +33,9 @@ int main() {
     // Now empty again
     assert(stack.isEmpty());
 
-    
     // Uncomment to test (will terminate program)
-    //stack.pop();
-    //stack.peek();
+    // stack.pop();
+    // stack.peek();
 
     return 0;
 }

@@ -1,35 +1,36 @@
 #pragma once
 #include "../Deque/Deque.hpp"
 
-template<typename Type>
+template <typename Type>
 
-class Queue{
-    private:
-        Deque<Type> data;
-        
-    public:
-        // Queue item to end of queue
-        void enqueue(Type item){
-            data.push_back(item);
-        }
+class Queue
+{
+   private:
+    Deque<Type> data;
 
-        // Dequeue item at front of queue
-        Type dequeue(){
-            return data.pop_front();
-        }
+   public:
+    // Queue item to end of queue
+    void enqueue(Type item) {
+        data.push_back(item);
+    }
 
-        // Return item at front of queue without dequeuing
-        Type front(){
-            return data.front();
-        }
-        
-        // Returns a true if queue is empty
-        bool isEmpty() const{
-            return data.isEmpty();
-        }
-        
-        // Returns the amount of items in the queue
-        int length() const{
-            return data.length();
-        }
+    // Dequeue item at front of queue
+    Type dequeue() {
+        return data.pop_front();
+    }
+
+    // Return item at front of queue without dequeuing
+    Type front() {
+        return data.front();
+    }
+
+    // Returns a true if queue is empty
+    bool isEmpty() const {
+        return data.isEmpty();
+    }
+
+    // Returns the amount of items in the queue
+    int length() const {
+        return data.length();
+    }
 };
