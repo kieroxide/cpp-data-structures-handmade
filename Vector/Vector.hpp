@@ -12,7 +12,12 @@ class Vector{
         int capacity;
     public:
         Vector() : data(new Type[INITIAL_CAPACITY]), size(0), capacity(INITIAL_CAPACITY) {}
-        
+        Vector(int capacity) {
+            assert(capacity > 0);
+            data = new Type[capacity];
+            size = 0;
+            this->capacity = capacity;
+        }
         // Deconstructor: Deletes data on object destruction
         ~Vector() {
             delete[] data;
