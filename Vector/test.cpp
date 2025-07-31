@@ -41,7 +41,6 @@ int main(){
     testB.remove(2);
     testB.remove(1);
     testB.remove(0);
-
     assert(testB[0] == 5 && testB[1] == 6 && testB[2] == 7);
 
     // Remove Testing passed
@@ -85,5 +84,8 @@ int main(){
     assert(vec[0] == "one");
     assert(vec[1] == "two");
     assert(vec[2] == "three");
+
+    vec.clear();
+    assert(vec.length() == 0);
     return 0;
 }
