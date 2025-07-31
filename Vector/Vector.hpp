@@ -39,6 +39,21 @@ class Vector{
             return data[index];
         }
 
+        Vector& operator=(Vector&& other) noexcept {
+            if (this != &other) {
+                delete[] data;
+            
+                data = other.data;
+                size = other.size;
+                capacity = other.capacity;
+            
+                other.data = nullptr;
+                other.size = 0;
+                other.capacity = 0;
+            }
+            return *this;
+        }
+
         // Method to add an item and resize if needed. Capacity doubles each resizing
         void append(const Type& item){
             if(size >= capacity){
