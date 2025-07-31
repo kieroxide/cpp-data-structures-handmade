@@ -38,7 +38,7 @@ class Vector{
         void append(const Type& item){
             if(size >= capacity){
                 capacity *= 2;
-                // Allocates new array and copies values from old array
+                // Allocates new vector and copies values from old vector
                 Type* resized_data = new Type[capacity];
                 for(int i = 0; i < size; i++){ 
                     resized_data[i] = std::move(data[i]);
@@ -69,5 +69,19 @@ class Vector{
                 }
             }
             return false;
+        }
+
+        // Method to Manually resize the vector. If shrinking excess will be discarded
+        void resize(int newSize){
+            int elementsToCopy = (newSize < size) ? newSize : size;
+            // Allocates new vector and copies values from old vector
+            capacity = newSize;
+            size = elementsToCopy;
+            Type* resized_data = new Type[capacity];
+            for(int i = 0; i < elementsToCopy; i++){ 
+                resized_data[i] = std::move(data[i]);
+            }
+            delete[] data;
+            data = resized_data;
         }
 };
