@@ -21,6 +21,16 @@ class Vector
         size           = 0;
         this->capacity = capacity;
     }
+    // Move Constructor
+    Vector(Vector&& other) noexcept {
+        data     = other.data;
+        size     = other.size;
+        capacity = other.capacity;
+
+        other.data     = nullptr;
+        other.size     = 0;
+        other.capacity = 0;
+    }
 
     friend std::ostream& operator<<(std::ostream& os, const Vector& vec) {
         os << "[";
@@ -34,17 +44,6 @@ class Vector
         return os;
     }
 
-    // Move Constructor
-    Vector(Vector&& other) noexcept {
-        data     = other.data;
-        size     = other.size;
-        capacity = other.capacity;
-
-        other.data     = nullptr;
-        other.size     = 0;
-        other.capacity = 0;
-    }
-
     // Deconstructor: Deletes data on object destruction
     ~Vector() {
         delete[] data;
@@ -54,7 +53,7 @@ class Vector
         return size;
     }
 
-    int capacity() const {
+    int getCapacity() const {
         return capacity;
     }
 
@@ -129,16 +128,22 @@ class Vector
         if (newSize <= 0) {
             newSize = 1;
         }
-        int elementsToCopy = (newSize < size) ? newSize : size;
-        // Allocates new vector and copies values from old vector
-        capacity           = newSize;
-        size               = elementsToCopy;
-        Type* resized_data = new Type[capacity];
-        for (int i = 0; i < elementsToCopy; i++) {
-            resized_data[i] = std::move(data[i]);
+
+        if (newSize > capacity) {
+            Type* newData = new Type[newSize]();
+            for (int i = 0; i < size; i++) {
+                newData[i] = std::move(data[i]);
+            }
+            delete[] data;
+            data     = newData;
+            capacity = newSize;
+        
+        } else if (newSize > size) {
+            for (int i = size; i < newSize; i++) {
+                data[i] = Type();
+            }
         }
-        delete[] data;
-        data = resized_data;
+        size = newSize;
     }
 
     // Method to clear the array to default

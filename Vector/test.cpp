@@ -4,7 +4,6 @@
 
 #include "Vector.hpp"
 
-
 int main() {
     Vector<int> test;
 
