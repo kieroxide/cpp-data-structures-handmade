@@ -15,6 +15,17 @@ class Hash{
         void resize(){
             
         }
+
+        Vector<int> getAllKeys(){
+            Vector<int> keys;
+            for(int i = 0; i < buckets.length(); i++){
+                LinkedList<Pair<int, Type>> bucket = buckets[i];
+                for(const Pair<int, Type> pair : bucket){
+                    keys.append(pair.key);
+                }
+            }
+            return keys;
+        }
     public:
         Hash() : capacity(INITIAL_CAPACITY), count(0){};
 
