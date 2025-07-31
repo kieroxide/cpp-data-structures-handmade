@@ -13,13 +13,26 @@ class Hash{
         int count;
 
         void resize(){
-            
+            capacity *= 2;
+            buckets.resize(capacity);
+            Vector<int> keys = getAllPairs;
+        }
+
+        Vector<Pair<int,Type>> getAllPairs(){
+            Vector<Pair<int, Type>> pairs;
+            for(int i = 0; i < buckets.length(); i++){
+                auto bucket = buckets[i];
+                for(const Pair<int, Type> pair : bucket){
+                    pairs.append(pair);
+                }
+            }
+            return pairs;
         }
 
         Vector<int> getAllKeys(){
             Vector<int> keys;
             for(int i = 0; i < buckets.length(); i++){
-                LinkedList<Pair<int, Type>> bucket = buckets[i];
+                auto bucket = buckets[i];
                 for(const Pair<int, Type> pair : bucket){
                     keys.append(pair.key);
                 }
