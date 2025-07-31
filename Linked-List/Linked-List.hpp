@@ -64,6 +64,10 @@ class LinkedList{
             return size;
         }
 
+        bool isEmpty() const{
+            return length() == 0;
+        }
+
         // Method to insert at the end of list
         void insert(Type data){
             insert(data, size);
@@ -85,6 +89,7 @@ class LinkedList{
             Node* current = traverseTo(index-1);
             insertAfter(current, node);
         }
+
         // Method to remove node at an index
         Type removeAt(int index){
             assert(index >= 0 && index < size);
