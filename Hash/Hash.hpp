@@ -12,23 +12,30 @@ class Hash{
         int capacity;
         int count;
 
+        // Method to resize the hash table to double the size
         void resize(){
             capacity *= 2;
+            Vector<Pair<int, Type>> pairs = getAllPairs();
+            auto oldBuckets = std::move(buckets);
             buckets.resize(capacity);
-            Vector<int> keys = getAllPairs;
+            for(const auto pair : pairs){
+                put(pair.key, pair.value);
+            }
         }
 
+        // Method returns a copy of all pairs in Hash Table
         Vector<Pair<int,Type>> getAllPairs(){
             Vector<Pair<int, Type>> pairs;
             for(int i = 0; i < buckets.length(); i++){
                 auto bucket = buckets[i];
-                for(const Pair<int, Type> pair : bucket){
+                for(const auto pair : bucket){
                     pairs.append(pair);
                 }
             }
             return pairs;
         }
 
+        // Method returns a copy of all keys in Hash Table
         Vector<int> getAllKeys(){
             Vector<int> keys;
             for(int i = 0; i < buckets.length(); i++){
@@ -39,28 +46,41 @@ class Hash{
             }
             return keys;
         }
-    public:
-        Hash() : capacity(INITIAL_CAPACITY), count(0){};
 
+        // Converts key to unsigned key // Basic hash function
         hashFunction(int key){
             return static_cast<size_t> key;
         }
-
-        void put(int key, Type value){
+    public:
+        Hash() : capacity(INITIAL_CAPACITY), count(0){};
+        
+        // Adds key and item to hashmap
+        void put(int key, Type item){
             int index = hashFunction(key) % capacity;
-            LinkedList<Pair<int, Type>>& bucket = buckets[index];
+            auto& bucket = buckets[index];
             for(int i = 0; i < bucket.length(); i++){
                 if(bucket[i].key == key){
-                    bucket[i].value = value;
+                    bucket[i].value = item;
                     return;
                 }
             }
 
-            bucket.insert(Pair(key,value));
+            bucket.insert(Pair(key,item));
             count++;
 
             if ((float)count / capacity > 0.75) {
                 resize();
             }
         }
+
+        Type& operator[](const int key) const{
+            int index = hashFunction(key);
+            auto& bucket = buckets[index];
+            for(int i = 0; i < bucket.length(); i++){
+                if(bucket[i].key == key){
+                    return bucket[i].value;
+                }
+            }
+            assert(false);
+        }   
 };
