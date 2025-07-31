@@ -114,4 +114,15 @@ class LinkedList{
             delete node;
             return value;
         }
+
+        void clear(){
+            Node* current = head;
+            while(current){
+                Node* next = current->next;
+                delete current;
+                current = next;
+            }
+            size = 0;
+            head = nullptr;
+        }
 };
