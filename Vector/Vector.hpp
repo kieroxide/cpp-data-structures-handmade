@@ -18,6 +18,16 @@ class Vector{
             size = 0;
             this->capacity = capacity;
         }
+        // Move Constructor
+        Vector(Vector&& other) noexcept {
+            data = other.data;
+            size = other.size;
+            capacity = other.capacity;
+
+            other.data = nullptr;
+            other.size = 0;
+            other.capacity = 0;
+        }
         // Deconstructor: Deletes data on object destruction
         ~Vector() {
             delete[] data;
@@ -39,6 +49,7 @@ class Vector{
             return data[index];
         }
 
+        // Move operator for std::Move()
         Vector& operator=(Vector&& other) noexcept {
             if (this != &other) {
                 delete[] data;
