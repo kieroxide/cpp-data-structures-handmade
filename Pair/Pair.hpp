@@ -1,3 +1,4 @@
+#include <iostream>
 template <typename T, typename G>
 
 class Pair

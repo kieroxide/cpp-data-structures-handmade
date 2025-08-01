@@ -1,5 +1,6 @@
 #pragma once
 #include "../Deque/Deque.hpp"
+#include <iostream>
 
 template <typename Type>
 
@@ -30,7 +31,7 @@ class Queue
     }
 
     // Returns the amount of items in the queue
-    int length() const {
-        return data.length();
+    int getSize() const {
+        return data.getSize();
     }
 };

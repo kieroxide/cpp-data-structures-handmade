@@ -6,7 +6,7 @@ int main() {
     Deque<int> dq;
 
     assert(dq.isEmpty());
-    assert(dq.length() == 0);
+    assert(dq.getSize() == 0);
 
     // Push front and back
     dq.push_back(10);
@@ -14,7 +14,7 @@ int main() {
     dq.push_back(30);
 
     assert(!dq.isEmpty());
-    assert(dq.length() == 3);
+    assert(dq.getSize() == 3);
 
     // Check front and back
     assert(dq.front() == 20);
@@ -24,25 +24,25 @@ int main() {
     int val = dq.pop_front();
     assert(val == 20);
     assert(dq.front() == 10);
-    assert(dq.length() == 2);
+    assert(dq.getSize() == 2);
 
     // Pop back and check values
     val = dq.pop_back();
     assert(val == 30);
     assert(dq.back() == 10);
-    assert(dq.length() == 1);
+    assert(dq.getSize() == 1);
 
     // Pop last element
     val = dq.pop_front();
     assert(val == 10);
     assert(dq.isEmpty());
-    assert(dq.length() == 0);
+    assert(dq.getSize() == 0);
 
     // Test pushing after emptying
     dq.push_front(5);
     assert(dq.front() == 5);
     assert(dq.back() == 5);
-    assert(dq.length() == 1);
+    assert(dq.getSize() == 1);
 
     return 0;
 }

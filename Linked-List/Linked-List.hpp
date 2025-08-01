@@ -29,10 +29,9 @@ class LinkedList
     // Helper method to traverse and return node at an index
     Node* traverseTo(int index) const {
         assert(index < size && index >= 0);
-
         int current_index = 0;
         Node* current     = head;
-        while (current_index != index && current->next != nullptr) {
+        while (current_index != index) {
             current_index++;
             current = current->next;
         }
@@ -54,9 +53,9 @@ class LinkedList
 
     friend std::ostream& operator<<(std::ostream& os, const LinkedList& list) {
         os << "[";
-        for (int i = 0; i < list.length(); i++) {
+        for (int i = 0; i < list.getSize(); i++) {
             os << list[i];
-            if (i < list.length() - 1) {
+            if (i < list.getSize() - 1) {
                 os << ", ";
             }
         }
@@ -76,12 +75,12 @@ class LinkedList
         return node->data;
     }
 
-    int length() const {
+    int getSize() const {
         return size;
     }
 
     bool isEmpty() const {
-        return length() == 0;
+        return getSize() == 0;
     }
 
     // Method to insert at the end of list

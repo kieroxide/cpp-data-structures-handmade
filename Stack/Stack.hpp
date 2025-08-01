@@ -1,5 +1,6 @@
 #pragma once
 #include "../Vector/Vector.hpp"
+#include <iostream>
 
 template <typename Type>
 

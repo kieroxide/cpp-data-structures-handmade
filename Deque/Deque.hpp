@@ -1,5 +1,6 @@
 #pragma once
 #include "../Linked-List/Linked-List.hpp"
+#include <iostream>
 
 template <typename Type>
 
@@ -11,7 +12,7 @@ class Deque
    public:
     // Enqueue item to end of queue
     void push_back(Type item) {
-        data.insert(item, length());
+        data.insert(item, getSize());
     }
 
     // Enqueue item to front of queue
@@ -29,7 +30,7 @@ class Deque
     // Dequeue item at back of queue
     Type pop_back() {
         assert(!isEmpty());
-        Type item = data.removeAt(length() - 1);
+        Type item = data.removeAt(getSize() - 1);
         return item;
     }
 
@@ -42,16 +43,16 @@ class Deque
     // Return item at back of queue without dequeuing
     Type& back() {
         assert(!isEmpty());
-        return data[length() - 1];
+        return data[getSize() - 1];
     }
 
     // Returns a true if queue is empty
     bool isEmpty() const {
-        return data.length() == 0;
+        return data.getSize() == 0;
     }
 
     // Returns the amount of items in the queue
-    int length() const {
-        return data.length();
+    int getSize() const {
+        return data.getSize();
     }
 };

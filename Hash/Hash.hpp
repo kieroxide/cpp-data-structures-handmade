@@ -21,7 +21,7 @@ class Hash
         buckets.clear();
         buckets.resize(oldCapacity * 2);
         count = 0;
-        for (int i = 0; i < pairs.length(); i++) {
+        for (int i = 0; i < pairs.getSize(); i++) {
             put(pairs[i].key, pairs[i].value);
         }
     }
@@ -29,9 +29,9 @@ class Hash
     // Method returns a copy of all pairs in Hash Table
     Vector<Pair<int, Type>> getAllPairs() {
         Vector<Pair<int, Type>> pairs;
-        for (int i = 0; i < buckets.length(); i++) {
+        for (int i = 0; i < buckets.getSize(); i++) {
             auto bucket = buckets[i];
-            for (int k = 0; k < bucket.length(); k++) {
+            for (int k = 0; k < bucket.getSize(); k++) {
                 pairs.append(bucket[k]);
             }
         }
@@ -41,9 +41,9 @@ class Hash
     // Method returns a copy of all keys in Hash Table
     Vector<int> getAllKeys() {
         Vector<int> keys;
-        for (int i = 0; i < buckets.length(); i++) {
+        for (int i = 0; i < buckets.getSize(); i++) {
             auto bucket = buckets[i];
-            for (int k = 0; k < bucket.length(); k++) {
+            for (int k = 0; k < bucket.getSize(); k++) {
                 keys.append(bucket[k].key);
             }
         }
@@ -62,9 +62,9 @@ class Hash
 
     friend std::ostream& operator<<(std::ostream& os, const Hash& hash) {
         os << "[";
-        for (int i = 0; i < hash.buckets.length(); i++) {
+        for (int i = 0; i < hash.buckets.getSize(); i++) {
             os << hash.buckets[i];
-            if (i < hash.buckets.length() - 1) {
+            if (i < hash.buckets.getSize() - 1) {
                 os << ", ";
             }
         }
@@ -76,7 +76,7 @@ class Hash
     void put(int key, Type value) {
         int index    = hashFunction(key) % buckets.getCapacity();
         auto& bucket = buckets[index];
-        for (int i = 0; i < bucket.length(); i++) {
+        for (int i = 0; i < bucket.getSize(); i++) {
             if (bucket[i].key == key) {
                 bucket[i].value = value;
                 return;
@@ -95,7 +95,7 @@ class Hash
     Type& operator[](const int key) {
         int index    = hashFunction(key) % buckets.getCapacity();
         auto& bucket = buckets[index];
-        for (int i = 0; i < bucket.length(); i++) {
+        for (int i = 0; i < bucket.getSize(); i++) {
             if (bucket[i].key == key) {
                 return bucket[i].value;
             }
@@ -103,7 +103,7 @@ class Hash
         // if not found inserts it
         put(key, Type());
         auto& newBucket = buckets[hashFunction(key) % buckets.getCapacity()];
-        for (int i = 0; i < newBucket.length(); i++) {
+        for (int i = 0; i < newBucket.getSize(); i++) {
             if (newBucket[i].key == key) {
                 return newBucket[i].value;
             }
