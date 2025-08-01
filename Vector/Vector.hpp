@@ -13,8 +13,10 @@ class Vector
     int capacity;
 
    public:
+    // Default Constructor
     Vector() : data(new Type[INITIAL_CAPACITY]), size(0), capacity(INITIAL_CAPACITY) {
     }
+    // Constructor with capacity
     Vector(int capacity) {
         assert(capacity > 0);
         data           = new Type[capacity];
@@ -32,41 +34,22 @@ class Vector
         other.capacity = 0;
     }
 
-    friend std::ostream& operator<<(std::ostream& os, const Vector& vec) {
-        os << "[";
-        for (int i = 0; i < vec.length(); i++) {
-            os << vec[i];
-            if (i < vec.length() - 1) {
-                os << ", ";
-            }
-        }
-        os << "]";
-        return os;
-    }
-
     // Deconstructor: Deletes data on object destruction
     ~Vector() {
         delete[] data;
     }
 
-    int length() const {
-        return size;
-    }
-
-    int getCapacity() const {
-        return capacity;
-    }
-
-    // get and set by index
-    Type& operator[](int index) {
-        assert(index >= 0 && index < size);
-        return data[index];
-    }
-
-    // Const Get by index
-    const Type& operator[](int index) const {
-        assert(index >= 0 && index < size);
-        return data[index];
+    // Output operator
+    friend std::ostream& operator<<(std::ostream& os, const Vector& vec) {
+        os << "[";
+        for (int i = 0; i < vec.getSize(); i++) {
+            os << vec[i];
+            if (i < vec.getSize() - 1) {
+                os << ", ";
+            }
+        }
+        os << "]";
+        return os;
     }
 
     // Move operator for std::Move()
@@ -85,30 +68,46 @@ class Vector
         return *this;
     }
 
+    // get and set by index
+    Type& operator[](int index) {
+        assert(index >= 0 && index < size);
+        return data[index];
+    }
+
+    // Const Get by index
+    const Type& operator[](int index) const {
+        assert(index >= 0 && index < size);
+        return data[index];
+    }
+
+    // Returns current length
+    int getSize() const {
+        return size;
+    }
+
+    // Returns current capacity
+    int getCapacity() const {
+        return capacity;
+    }
+
     // Method to add an item and resize if needed. Capacity doubles each resizing
     void append(const Type& item) {
         if (size >= capacity) {
-            capacity *= 2;
-            // Allocates new vector and copies values from old vector
-            Type* resized_data = new Type[capacity];
-            for (int i = 0; i < size; i++) {
-                resized_data[i] = std::move(data[i]);
-            }
-            delete[] data;
-            data = resized_data;
+            ensureCapacity(size + 1);
         }
-        // appends the item and then increments the length
+        // appends the item and then increments the size
         data[size++] = item;
     }
 
     // Removes the item at the index and returns its value
     Type remove(int index) {
+        assert(index < size && index >= 0);
         Type value = std::move(data[index]);
+        // From index onwards shifts elements left
         for (int i = index; i < size - 1; i++) {
             data[i] = std::move(data[i + 1]);
         }
         size--;
-        data[size] = Type();
         return value;
     }
 
@@ -122,27 +121,32 @@ class Vector
         return false;
     }
 
-    // Method to Manually resize the vector. If shrinking excess will be discarded
-    // Clamped to size of 1 if input is below 1
-    void resize(int newSize) {
-        if (newSize <= 0) {
-            newSize = 1;
+    //Method to ensure there is enought capacity for the new size
+    void ensureCapacity(int minCapacity){
+        if (minCapacity <= 0) {
+            minCapacity = 1;
         }
+        // If new size is larger than capacity, allocate and copy to new array
+        if (minCapacity > capacity) {
+            int newCapacity = capacity;
+            while(newCapacity < minCapacity){
+                newCapacity *= 2;
+            }
+            capacity = newCapacity;
 
-        if (newSize > capacity) {
-            Type* newData = new Type[newSize]();
+            Type* newData = new Type[capacity]();
             for (int i = 0; i < size; i++) {
                 newData[i] = std::move(data[i]);
             }
             delete[] data;
             data     = newData;
-            capacity = newSize;
-        
-        } else if (newSize > size) {
-            for (int i = size; i < newSize; i++) {
-                data[i] = Type();
-            }
         }
+    }
+
+    // Method to Manually resize the vector. If shrinking excess will be discarded
+    // Clamped to size of 1 if input is below 1
+    void resize(int newSize) {
+        ensureCapacity(newSize);
         size = newSize;
     }
 
