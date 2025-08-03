@@ -1,4 +1,5 @@
 #include "../Graph/Graph.hpp"
+#include <iostream>
 
 int main(){
     Graph<int> g;
@@ -14,5 +15,6 @@ int main(){
     assert(g.getEdgeCount() == 3);
     assert(g.getDegreeCount() == 6);
 
+    std::cout << g;
     return 0;
 }
