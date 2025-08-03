@@ -1,3 +1,4 @@
+#pragma once
 #include <cassert>
 #include <iostream>
 
@@ -10,6 +11,7 @@ class Graph
     struct Vertex
     {
         int id = -1;
+        Type data;
         std::string name;
     };
     struct Edge
@@ -34,19 +36,33 @@ class Graph
         edgeCount   = 0;
     }
 
-    // Adds Vertex to graph
-    void addVertex(std::string name = "") {
-        int newID = adjList.getSize();
-        Vertex v{newID, name};
-        vertices.append(v);
-        adjList.append(Vector<Edge>());
+    int getVertexCount() const{
+        return vertexCount;
+    }
+
+    int getEdgeCount() const{
+        return edgeCount;
+    }
+
+    int getDegreeCount() const{
+        return edgeCount*2;
     }
 
     // Adds Vertex to graph
-    void addEdge(int from, int to, double weight = 1.0, std::string name = "", int edgeID = edgeCount) {
+    void addVertex(Type data, std::string name = "") {
+        int newID = adjList.getSize();
+        Vertex v{newID, data, name};
+        vertices.append(v);
+        adjList.append(Vector<Edge>());
+        vertexCount++;
+    }
+
+    // Adds Vertex to graph
+    void addEdge(int from, int to, double weight = 1.0, std::string name = "") {
         assert(vertices.getSize() <= from || vertices.getSize() <= to);
-        Edge e{to, weight, name, id};
-        adjList[from][to] = 1;
+        Edge e{to, weight, name};
+        adjList[from].append(e);
+        edgeCount++;
     }
 
 
