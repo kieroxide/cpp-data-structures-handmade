@@ -35,6 +35,16 @@ class Vector
         other.capacity = 0;
     }
 
+    // Copy Constructor
+    Vector(const Vector& other) noexcept {
+        size     = other.size;
+        capacity = other.capacity;
+        data = new Type[capacity];
+        for(int i = 0; i < getSize(); i++){
+            data[i] = other.data[i];
+        }
+    }
+
     // Deconstructor: Deletes data on object destruction
     ~Vector() {
         delete[] data;
@@ -53,6 +63,21 @@ class Vector
         return os;
     }
 
+    // Copy operator
+    Vector& operator=(const Vector& other){
+        if (this != &other) {
+            delete[] data;
+
+            data     = new Type[other.getCapacity()];
+            size     = other.size;
+            capacity = other.capacity;
+
+            for(int i = 0; i < other.getSize(); i++){
+                data[i] = other[i];
+            }
+        }
+        return *this;
+    }
     // Move operator for std::Move()
     Vector& operator=(Vector&& other) noexcept {
         if (this != &other) {
