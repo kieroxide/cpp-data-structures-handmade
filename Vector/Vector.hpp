@@ -145,7 +145,7 @@ class Vector
     }
 
     // Method to Manually resize the vector. If shrinking excess will be discarded
-    // Clamped to size of 1 if input is below 1
+    // Clamped to minimum capacity of 1
     void resize(int newSize) {
         ensureCapacity(newSize);
         size = newSize;
