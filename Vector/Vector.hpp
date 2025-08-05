@@ -15,16 +15,19 @@ class Vector
 
    public:
     // Default Constructor
+    //[Time Complexity = O(1)]
     Vector() : data(new Type[INITIAL_CAPACITY]), size(0), capacity(INITIAL_CAPACITY) {
     }
     // Constructor with capacity
+    //[Time Complexity = O(1)]
     Vector(size_t capacity) {
-        assert(capacity > 0);
-        data           = new Type[capacity];
+        this->capacity = (capacity == 0 ? 1 : capacity);
+        data           = new Type[this->capacity];
         size           = 0;
-        this->capacity = capacity;
     }
+
     // Move Constructor
+    //[Time Complexity = O(1)]
     Vector(Vector&& other) noexcept {
         data     = other.data;
         size     = other.size;
@@ -35,15 +38,27 @@ class Vector
         other.capacity = 0;
     }
 
+    // Copy Constructor
+    //[Time Complexity = O(n)]
+    Vector(const Vector& other) {
+        data = new Type[other.capacity];
+        size = other.size;
+        capacity = other.capacity;
+        for (size_t i = 0; i < size; ++i) {
+            data[i] = other.data[i];
+        }
+    }
+
     // Deconstructor: Deletes data on object destruction
     ~Vector() {
         delete[] data;
     }
 
     // Output operator
+    //[Time Complexity = O(n)]
     friend std::ostream& operator<<(std::ostream& os, const Vector& vec) {
         os << "[";
-        for (int i = 0; i < vec.getSize(); i++) {
+        for (size_t i = 0; i < vec.getSize(); i++) {
             os << vec[i];
             if (i < vec.getSize() - 1) {
                 os << ", ";
@@ -53,7 +68,8 @@ class Vector
         return os;
     }
 
-    // Move operator for std::Move()
+    // Move operator for std::Move() 
+    //[Time Complexity = O(1)]
     Vector& operator=(Vector&& other) noexcept {
         if (this != &other) {
             delete[] data;
@@ -69,29 +85,49 @@ class Vector
         return *this;
     }
 
-    // get and set by index
+    // Copy operator
+    //[Time Complexity = O(n)]
+    Vector& operator=(const Vector& other) {
+        if (this != &other) {
+            delete[] data;
+            data = new Type[other.capacity];
+            size = other.size;
+            capacity = other.capacity;
+            for (size_t i = 0; i < size; ++i) {
+                data[i] = other.data[i];
+            }
+        }
+        return *this;
+    }
+
+    // get and set by index 
+    //[Time Complexity = O(1)]
     Type& operator[](size_t index) {
         assert(index < size);
         return data[index];
     }
 
-    // Const Get by index
+    // Const Get by index 
+    //[Time Complexity = O(1)]
     const Type& operator[](size_t index) const {
         assert(index < size);
         return data[index];
     }
 
-    // Returns current length
+    // Returns current length 
+    //[Time Complexity = O(1)]
     size_t getSize() const {
         return size;
     }
 
-    // Returns current capacity
+    // Returns current capacity 
+    //[Time Complexity = O(1)]
     size_t getCapacity() const {
         return capacity;
     }
 
-    // Method to add an item and resize if needed. Capacity doubles each resizing
+    // Method to add an item and resize if needed. Capacity doubles each resizing 
+    //[Time Complexity = O(n), amortized = O(1)]
     void append(const Type& item) {
         if (size >= capacity) {
             ensureCapacity(size + 1);
@@ -101,6 +137,7 @@ class Vector
     }
 
     // Removes the item at the index and returns its value
+    // [Time Complexity = O(n)]
     Type remove(size_t index) {
         assert(index < size);
         Type value = std::move(data[index]);
@@ -113,7 +150,8 @@ class Vector
     }
 
     // Simple Search method to return if target is in Vector
-    bool search(Type target) {
+    //[Time Complexity = O(n)]
+    bool search(const Type& target) const {
         for (size_t i = 0; i < size; i++) {
             if (data[i] == target) {
                 return true;
@@ -123,6 +161,7 @@ class Vector
     }
 
     //Method to ensure there is enought capacity for the new size
+    //[Time Complexity = O(n)]
     void ensureCapacity(size_t minCapacity){
         if (minCapacity == 0) {
             minCapacity = 1;
@@ -146,12 +185,14 @@ class Vector
 
     // Method to Manually resize the vector. If shrinking excess will be discarded
     // Clamped to minimum capacity of 1
+    //[Time Complexity = O(n)]
     void resize(size_t newSize) {
         ensureCapacity(newSize);
         size = newSize;
     }
 
     // Method to clear the array to default
+    //[Time Complexity = O(1)]
     void clear() {
         size = 0;
     }
