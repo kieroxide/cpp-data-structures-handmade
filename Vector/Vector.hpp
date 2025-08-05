@@ -8,17 +8,17 @@ template <typename Type>
 class Vector
 {
    private:
-    const int INITIAL_CAPACITY = 4;
+    const size_t INITIAL_CAPACITY = 4;
     Type* data;
-    int size;
-    int capacity;
+    size_t size;
+    size_t capacity;
 
    public:
     // Default Constructor
     Vector() : data(new Type[INITIAL_CAPACITY]), size(0), capacity(INITIAL_CAPACITY) {
     }
     // Constructor with capacity
-    Vector(int capacity) {
+    Vector(size_t capacity) {
         assert(capacity > 0);
         data           = new Type[capacity];
         size           = 0;
@@ -70,24 +70,24 @@ class Vector
     }
 
     // get and set by index
-    Type& operator[](int index) {
-        assert(index >= 0 && index < size);
+    Type& operator[](size_t index) {
+        assert(index < size);
         return data[index];
     }
 
     // Const Get by index
-    const Type& operator[](int index) const {
-        assert(index >= 0 && index < size);
+    const Type& operator[](size_t index) const {
+        assert(index < size);
         return data[index];
     }
 
     // Returns current length
-    int getSize() const {
+    size_t getSize() const {
         return size;
     }
 
     // Returns current capacity
-    int getCapacity() const {
+    size_t getCapacity() const {
         return capacity;
     }
 
@@ -101,11 +101,11 @@ class Vector
     }
 
     // Removes the item at the index and returns its value
-    Type remove(int index) {
-        assert(index < size && index >= 0);
+    Type remove(size_t index) {
+        assert(index < size);
         Type value = std::move(data[index]);
         // From index onwards shifts elements left
-        for (int i = index; i < size - 1; i++) {
+        for (size_t i = index; i < size - 1; i++) {
             data[i] = std::move(data[i + 1]);
         }
         size--;
@@ -114,7 +114,7 @@ class Vector
 
     // Simple Search method to return if target is in Vector
     bool search(Type target) {
-        for (int i = 0; i < size; i++) {
+        for (size_t i = 0; i < size; i++) {
             if (data[i] == target) {
                 return true;
             }
@@ -123,20 +123,20 @@ class Vector
     }
 
     //Method to ensure there is enought capacity for the new size
-    void ensureCapacity(int minCapacity){
-        if (minCapacity <= 0) {
+    void ensureCapacity(size_t minCapacity){
+        if (minCapacity == 0) {
             minCapacity = 1;
         }
         // If new size is larger than capacity, allocate and copy to new array
         if (minCapacity > capacity) {
-            int newCapacity = capacity;
+            size_t newCapacity = capacity;
             while(newCapacity < minCapacity){
                 newCapacity *= 2;
             }
             capacity = newCapacity;
 
-            Type* newData = new Type[capacity]();
-            for (int i = 0; i < size; i++) {
+            Type* newData = new Type[capacity];
+            for (size_t i = 0; i < size; i++) {
                 newData[i] = std::move(data[i]);
             }
             delete[] data;
@@ -146,7 +146,7 @@ class Vector
 
     // Method to Manually resize the vector. If shrinking excess will be discarded
     // Clamped to minimum capacity of 1
-    void resize(int newSize) {
+    void resize(size_t newSize) {
         ensureCapacity(newSize);
         size = newSize;
     }
