@@ -28,6 +28,6 @@ int main(){
 
     iterations = 10000;
     v.resize(iterations);
-    benchmark([&]() {v.remove(0);}, iterations); // Remove at worst case 247,843ns
+    benchmark([&]() {v.remove(0);}, iterations); // Remove at worst case 247,843ns | 248us
     return 0;
 }
