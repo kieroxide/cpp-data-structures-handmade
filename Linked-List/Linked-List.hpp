@@ -15,9 +15,10 @@ class LinkedList
         }
     };
     Node* head;
-    int size;
+    size_t size;
 
     // Helper method for inserting after a node
+    // Time complexity: O(1)
     void insertAfter(Node* start, Node* middle) {
         assert(start && middle);
 
@@ -27,9 +28,10 @@ class LinkedList
     }
 
     // Helper method to traverse and return node at an index
-    Node* traverseTo(int index) const {
-        assert(index < size && index >= 0);
-        int current_index = 0;
+    // Time complexity: O(n)
+    Node* traverseTo(size_t index) const {
+        assert(index < size);
+        size_t current_index = 0;
         Node* current     = head;
         while (current_index != index) {
             current_index++;
@@ -43,17 +45,12 @@ class LinkedList
     }
     // Deconstructor to free all allocated memory
     ~LinkedList() {
-        Node* current = head;
-        while (current != nullptr) {
-            Node* next = current->next;
-            delete current;
-            current = next;
-        }
+        clear();
     }
 
     friend std::ostream& operator<<(std::ostream& os, const LinkedList& list) {
         os << "[";
-        for (int i = 0; i < list.getSize(); i++) {
+        for (size_t i = 0; i < list.getSize(); i++) {
             os << list[i];
             if (i < list.getSize() - 1) {
                 os << ", ";
@@ -64,33 +61,38 @@ class LinkedList
     }
 
     // Get and Sets list[index]
-    Type& operator[](int index) {
+    // Time complexity: O(n)
+    Type& operator[](size_t index) {
         Node* node = traverseTo(index);
         return node->data;
     }
 
     // Gets const list[index]
-    const Type& operator[](int index) const {
+    // Time complexity: O(n)
+    const Type& operator[](size_t index) const {
         Node* node = traverseTo(index);
         return node->data;
     }
 
-    int getSize() const {
+    // Time complexity: O(1)
+    size_t getSize() const {
         return size;
     }
-
+    // Time complexity: O(1)
     bool isEmpty() const {
         return getSize() == 0;
     }
 
     // Method to insert at the end of list
+    // Time complexity: O(n)
     void insert(Type data) {
         insert(data, size);
     }
 
     // Method to create and insert node at an index
-    void insert(Type data, int index) {
-        assert(index >= 0 && index <= size);
+    // Time complexity: O(n)
+    void insert(Type data, size_t index) {
+        assert(index <= size);
         size++;
         Node* node = new Node(data);
 
@@ -106,8 +108,9 @@ class LinkedList
     }
 
     // Method to remove node at an index
-    Type removeAt(int index) {
-        assert(index >= 0 && index < size);
+    // Time complexity: O(n)
+    Type removeAt(size_t index) {
+        assert(index < size);
         size--;
 
         if (index == 0) {
@@ -130,9 +133,10 @@ class LinkedList
         return value;
     }
 
+    // Time complexity: O(1)
     void clear() {
         Node* current = head;
-        while (current) {
+        while (current) { 
             Node* next = current->next;
             delete current;
             current = next;
