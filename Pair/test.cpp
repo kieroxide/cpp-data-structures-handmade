@@ -21,7 +21,7 @@ int main() {
     assert(p1.key == 20);
     assert(p1.value == "world");
 
-    std::cout << "All Pair tests passed.\n";
-    std::cout << p2;
+    std::cout << "All Pair tests passed successfully.\n";
+    //std::cout << p2;
     return 0;
 }
