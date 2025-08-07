@@ -38,5 +38,6 @@ int main() {
     // q.dequeue();
     // q.front();
 
+    std::cout << "All Queue tests passed successfully.\n";
     return 0;
 }
