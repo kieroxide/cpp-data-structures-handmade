@@ -1,7 +1,8 @@
 #pragma once
 #include <cassert>
-#include <utility>
 #include <iostream>
+#include <utility>
+
 
 template <typename Type>
 
@@ -41,8 +42,8 @@ class Vector
     // Copy Constructor
     //[Time Complexity = O(n)]
     Vector(const Vector& other) {
-        data = new Type[other.capacity];
-        size = other.size;
+        data     = new Type[other.capacity];
+        size     = other.size;
         capacity = other.capacity;
         for (size_t i = 0; i < size; ++i) {
             data[i] = other.data[i];
@@ -68,7 +69,7 @@ class Vector
         return os;
     }
 
-    // Move operator for std::Move() 
+    // Move operator for std::Move()
     //[Time Complexity = O(1)]
     Vector& operator=(Vector&& other) noexcept {
         if (this != &other) {
@@ -90,8 +91,8 @@ class Vector
     Vector& operator=(const Vector& other) {
         if (this != &other) {
             delete[] data;
-            data = new Type[other.capacity];
-            size = other.size;
+            data     = new Type[other.capacity];
+            size     = other.size;
             capacity = other.capacity;
             for (size_t i = 0; i < size; ++i) {
                 data[i] = other.data[i];
@@ -100,33 +101,33 @@ class Vector
         return *this;
     }
 
-    // get and set by index 
+    // get and set by index
     //[Time Complexity = O(1)]
     Type& operator[](size_t index) {
         assert(index < size);
         return data[index];
     }
 
-    // Const Get by index 
+    // Const Get by index
     //[Time Complexity = O(1)]
     const Type& operator[](size_t index) const {
         assert(index < size);
         return data[index];
     }
 
-    // Returns current length 
+    // Returns current length
     //[Time Complexity = O(1)]
     size_t getSize() const {
         return size;
     }
 
-    // Returns current capacity 
+    // Returns current capacity
     //[Time Complexity = O(1)]
     size_t getCapacity() const {
         return capacity;
     }
 
-    // Method to add an item and resize if needed. Capacity doubles each resizing 
+    // Method to add an item and resize if needed. Capacity doubles each resizing
     //[Time Complexity = O(n), amortized = O(1)]
     void append(const Type& item) {
         if (size >= capacity) {
@@ -160,16 +161,16 @@ class Vector
         return false;
     }
 
-    //Method to ensure there is enought capacity for the new size
+    // Method to ensure there is enought capacity for the new size
     //[Time Complexity = O(n)]
-    void ensureCapacity(size_t minCapacity){
+    void ensureCapacity(size_t minCapacity) {
         if (minCapacity == 0) {
             minCapacity = 1;
         }
         // If new size is larger than capacity, allocate and copy to new array
         if (minCapacity > capacity) {
             size_t newCapacity = capacity;
-            while(newCapacity < minCapacity){
+            while (newCapacity < minCapacity) {
                 newCapacity *= 2;
             }
             capacity = newCapacity;
@@ -179,7 +180,7 @@ class Vector
                 newData[i] = std::move(data[i]);
             }
             delete[] data;
-            data     = newData;
+            data = newData;
         }
     }
 
@@ -188,6 +189,11 @@ class Vector
     //[Time Complexity = O(n)]
     void resize(size_t newSize) {
         ensureCapacity(newSize);
+        if (newSize > size) {
+            for (size_t i = size; i < newSize; ++i) {
+                data[i] = Type();  // default-construct new elements
+            }
+        }
         size = newSize;
     }
 

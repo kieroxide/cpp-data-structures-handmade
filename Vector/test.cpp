@@ -12,7 +12,7 @@ void testAppendAndAccess() {
     test.append(-1);
 
     assert(test[0] == 20 && test[1] == 10 && test[2] == -1);
-    std::cout << "Append and access test passed.\n";
+    //std::cout << "Append and access test passed.\n";
 }
 
 // Test dynamic resizing on append
@@ -22,7 +22,7 @@ void testDynamicResize() {
         test.append(i * 100);
     }
     assert(test.getSize() == 53);
-    std::cout << "Dynamic resize test passed.\n";
+    //std::cout << "Dynamic resize test passed.\n";
 }
 
 // Test remove method and element shifting
@@ -40,7 +40,7 @@ void testRemove() {
     testB.remove(0); // remove 20
 
     assert(testB[0] == 5 && testB[1] == 6 && testB[2] == 7);
-    std::cout << "Remove test passed.\n";
+    //std::cout << "Remove test passed.\n";
 }
 
 // Test search method
@@ -52,7 +52,7 @@ void testSearch() {
     assert(testString.search("Yo"));
     assert(!testString.search("Nope"));
 
-    std::cout << "Search test passed.\n";
+    //std::cout << "Search test passed.\n";
 }
 
 // Test resize behavior and clear
@@ -83,7 +83,7 @@ void testResizeAndClear() {
 
     vec.clear();
     assert(vec.getSize() == 0);
-    std::cout << "Resize and clear test passed.\n";
+    //std::cout << "Resize and clear test passed.\n";
 }
 
 int main() {
