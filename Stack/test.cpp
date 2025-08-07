@@ -37,5 +37,6 @@ int main() {
     // stack.pop();
     // stack.peek();
 
+    std::cout << "All Stack tests passed successfully.\n";
     return 0;
 }

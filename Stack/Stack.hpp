@@ -18,7 +18,7 @@ class Stack
 
     // Pop item from top of the stack
     // Time Complexity: O(1)
-    Type& pop() {
+    Type pop() {
         assert(!isEmpty());
         Type item = data.remove(data.getSize() - 1);
         return item;
