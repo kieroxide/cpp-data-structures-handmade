@@ -69,21 +69,6 @@ class Vector
         return os;
     }
 
-    // Copy operator
-    Vector& operator=(const Vector& other){
-        if (this != &other) {
-            delete[] data;
-
-            data     = new Type[other.getCapacity()];
-            size     = other.size;
-            capacity = other.capacity;
-
-            for(int i = 0; i < other.getSize(); i++){
-                data[i] = other[i];
-            }
-        }
-        return *this;
-    }
     // Move operator for std::Move()
     //[Time Complexity = O(1)]
     Vector& operator=(Vector&& other) noexcept {
