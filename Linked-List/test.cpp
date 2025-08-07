@@ -39,7 +39,8 @@ int main() {
     assert(test.getSize() == 5);
 
     for (int i = 0; i < test.getSize(); i++) {
-        std::cout << "test[" << i << "]: " << test[i] << std::endl;
+        //std::cout << "test[" << i << "]: " << test[i] << std::endl;
     }
     // REMOVE TESTS PASSED
+    std::cout << "All Linked List tests passed successfully.\n";
 }

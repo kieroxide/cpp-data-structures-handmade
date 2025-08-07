@@ -43,6 +43,14 @@ class LinkedList
    public:
     LinkedList() : head(nullptr), size(0) {
     }
+    // Copy constructor
+    LinkedList(const LinkedList& other) : head(nullptr), size(0) {
+        Node* current = other.head;
+        while (current) {
+            insert(current->data); // insert at end
+            current = current->next;
+        }
+    }
     // Deconstructor to free all allocated memory
     ~LinkedList() {
         clear();
@@ -74,6 +82,19 @@ class LinkedList
         return node->data;
     }
 
+    // Copy Assignment
+    LinkedList& operator=(const LinkedList& other) {
+        if (this != &other) {
+            clear();
+            Node* current = other.head;
+            while (current) {
+                insert(current->data);
+                current = current->next;
+            }
+        }
+        return *this;
+    }
+
     // Time complexity: O(1)
     size_t getSize() const {
         return size;
@@ -84,14 +105,16 @@ class LinkedList
     }
 
     // Method to insert at the end of list
+    // Optionally returns pointer to added node
     // Time complexity: O(n)
-    void insert(Type data) {
-        insert(data, size);
+    Node* insert(Type data) {
+        return insert(data, size);
     }
 
     // Method to create and insert node at an index
+    // Optionally returns pointer to added node
     // Time complexity: O(n)
-    void insert(Type data, size_t index) {
+    Node* insert(Type data, size_t index) {
         assert(index <= size);
         size++;
         Node* node = new Node(data);
@@ -100,11 +123,12 @@ class LinkedList
             Node* next = head;
             head       = node;
             head->next = next;
-            return;
+            return head;
         }
 
         Node* current = traverseTo(index - 1);
         insertAfter(current, node);
+        return node;
     }
 
     // Method to remove node at an index
