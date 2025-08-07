@@ -44,5 +44,6 @@ int main() {
     assert(dq.back() == 5);
     assert(dq.getSize() == 1);
 
+    std::cout << "All Deque tests passed successfully.\n";
     return 0;
 }
