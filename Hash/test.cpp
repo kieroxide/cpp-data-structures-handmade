@@ -18,7 +18,6 @@ int main() {
     assert(hash[3] == 30);
     assert(hash[4] == 40);
 
-    std::cout << "Hash before exceeding load factor:\n" << hash << "\n";
 
     // Insert one more to trigger resize (assuming load factor threshold 0.75)
     hash.put(5, 50);
@@ -30,9 +29,7 @@ int main() {
     assert(hash[4] == 40);
     assert(hash[5] == 50);
 
-    std::cout << "Hash after exceeding load factor and resize:\n" << hash << "\n";
-
-    std::cout << "All tests passed!\n";
+    std::cout << "All Hash tests successfully.\n";
 
     return 0;
 }
