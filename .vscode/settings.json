@@ -54,6 +54,11 @@
         "algorithm": "cpp",
         "deque": "cpp",
         "optional": "cpp",
-        "queue": "cpp"
+        "queue": "cpp",
+        "chrono": "cpp",
+        "forward_list": "cpp",
+        "iomanip": "cpp",
+        "ratio": "cpp",
+        "sstream": "cpp"
     }
 }
