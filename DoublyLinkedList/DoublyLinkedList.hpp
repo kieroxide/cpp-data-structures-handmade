@@ -163,8 +163,7 @@ class DoublyLinkedList
     // Time complexity: O(n)
     Type removeAt(size_t index) {
         assert(index < size);
-        size--;
-
+        Type value;
         if (index == 0) {
             Node* next    = head->next;
             if(next){
@@ -172,19 +171,31 @@ class DoublyLinkedList
             }
             Node* oldHead = head;
             head          = next;
-            Type value    = oldHead->data;
+            value    = oldHead->data;
             delete oldHead;
-            return value;
+        } else {
+            Node* prev = traverseTo(index - 1);
+            // Links prev to next
+            Node* node = prev->next;
+            Node* next = nullptr;
+            if(node){
+                next = node->next;
+            }
+            if(next){
+                next->prev = prev;
+            }
+            prev->next = next;
+            if(index == size - 1){
+                tail = prev;
+            }
+            value = node->data;
+            delete node;
         }
-
-        Node* prev = traverseTo(index - 1);
-        // Links prev to next
-        Node* node = prev->next;
-        Node* next = node->next;
-        prev->next = next;
-
-        Type value = node->data;
-        delete node;
+        size--;
+        if(size == 0){
+            head = nullptr;
+            tail = nullptr;
+        }
         return value;
     }
 
@@ -198,5 +209,6 @@ class DoublyLinkedList
         }
         size = 0;
         head = nullptr;
+        tail = nullptr;
     }
 };
